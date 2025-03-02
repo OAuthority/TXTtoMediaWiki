@@ -45,7 +45,6 @@ namespace TXTtoMediaWiki
 
             var program = new Program(apiUrl, username);
             string loginResult = await program.LoginUserAsync(username, password);
-            Console.WriteLine(loginResult);
 
             if (loginResult.Contains("successful"))
             {
@@ -56,8 +55,6 @@ namespace TXTtoMediaWiki
         public async Task<string> LoginUserAsync(string username, string password)
         {
             string? loginToken = await GetTokenAsync("login");
-
-            Console.WriteLine($"Login token: {loginToken}");
 
             if (string.IsNullOrWhiteSpace(loginToken))
             {
@@ -82,7 +79,7 @@ namespace TXTtoMediaWiki
             }
 
             string jsonResponse = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Login response: {jsonResponse}");
+
             using JsonDocument doc = JsonDocument.Parse(jsonResponse);
             JsonElement root = doc.RootElement;
 
